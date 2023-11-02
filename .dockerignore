@@ -1,0 +1,6 @@
+*
+!k8s
+!options
+!webhook
+!go.*
+!main.go
