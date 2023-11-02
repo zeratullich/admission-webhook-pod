@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-webhook-pod
+  labels:
+    app: admission-webhook-pod
+  namespace: admission-webhook-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admission-webhook-pod
+  template:
+    metadata:
+      labels:
+        app: admission-webhook-pod
+    spec:
+      serviceAccountName: admission-webhook-pod
+      containers:
+        - name: admission-webhook-pod
+          image: admission-webhook-pod
+          imagePullPolicy: Always
+          args:
+          - --isDebug=false
+          - --service=admission-webhook-pod
+          - --namespace=admission-webhook-pod
+          - --port=443
+          ports:
+          - containerPort: 443
+            name: "webhook-ssl"
+            protocol: TCP
+          # env:
+          # - name: POD_NAMESPACE
+          #   valueFrom:
+          #     fieldRef:
+          #       fieldPath: metadata.namespace
