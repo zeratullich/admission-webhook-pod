@@ -15,6 +15,6 @@ FROM alpine:latest
 WORKDIR /
 
 # install binary
-COPY --from=builder /workspace .
+COPY --from=builder /workspace/admission-webhook-pod .
 
 ENTRYPOINT [ "/admission-webhook-pod" ]
